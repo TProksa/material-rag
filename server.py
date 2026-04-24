@@ -24,7 +24,10 @@ from pydantic import BaseModel
 # CONFIG
 # ═══════════════════════════════════════════════════
 
-DATA_DIR = Path(__file__).parent / "data"
+# Hledej PDF v podsložce data/ nebo přímo v root složce
+_root = Path(__file__).parent
+_data_sub = _root / "data"
+DATA_DIR = _data_sub if _data_sub.exists() and list(_data_sub.glob("*.pdf")) else _root
 DATA_DIR.mkdir(exist_ok=True)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
